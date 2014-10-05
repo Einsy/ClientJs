@@ -1,0 +1,39 @@
+{
+  "name": "myapp.exe",
+  "folder": "source",
+  "main":"sourcedir1/index.html",
+  "encrypt":"",
+  "window":
+  { 
+  	"caption":"标题",
+    "left":0,
+    "top":0,
+    "width":400,
+    "height":300,
+  	"style":
+  	[
+	  	"WS_MAXIMIZEBOX",
+	  	"WS_MINIMIZEBOX",
+	  	"WS_POPUP",
+	  	"WS_VISIBLE",
+	  	"WS_CAPTION",
+	  	"WS_SYSMENU",
+	  	"WS_THICKFRAME"
+  	],
+  	"exstyle":"WS_EX_APPWINDOW",
+  	"language":"LANG_CHINESE",
+  	"font":[9,"宋体"],
+  },
+  "StringFileInfo":
+  {
+	 "CompanyName":"",
+	 "FileDescription": "web1 Microsoft 基础类应用程序",
+	 "FileVersion": "1, 0, 0, 1",
+	 "InternalName": "web1",
+	 "LegalCopyright": "版权所有 (C) 2014",
+	 "LegalTrademarks": "",
+	 "OriginalFilename": "web1.EXE",
+	 "ProductName": "web1 应用程序",
+	 "ProductVersion": "1, 0, 0, 1"
+  }
+}

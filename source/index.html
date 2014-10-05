@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Editor</title>
+<style> 
+html
+{
+ margin:0px;padding:0px;
+ overflow:hidden;
+ cursor:default;
+}
+body
+{
+ margin:0px;padding:0px;
+ overflow:hidden;
+ cursor:default;
+}
+
+#Editor
+{
+  margin-left:auto;
+  margin-right:auto; 
+  margin-top:5px; 
+  width:100%;
+  height:600px; 
+  border:1px solid #cccccc;
+}
+</style>
+</head>
+
+<body>
+<textarea id="debug" style="width:100%;height:200px;border:solid 1px #cccccc;"></textarea>
+<script>
+function $ID(obj){ return document.getElementById(obj);}
+var ActiveXObjectList=
+{
+   "fso":"Scripting.FileSystemObject",
+   "encode":"Scripting.Encoder",
+   "socket":"MSWinsock.winsock",
+   "shell":"Shell.Application",
+   "ie":"InternetExplorer.Application",
+   "wsh":"WScript.Shell",
+   "stream":"ADODB.Stream",
+   "xml":"Microsoft.XMLHTTP",
+   "wmi":"WbemScripting.SWbemLocator"
+};
+
+var require =null;
+document.onInit=function(imp)
+{
+   require=imp;
+}
+
+var ForWriting= 2;
+function Test(n)
+{
+   if(n==1)
+   {
+       var fso=require("fso");
+       var tf = fso.OpenTextFile("c://test.txt", ForWriting, true);
+
+       tf.WriteLine("Testing 1, 2, 3.") ;
+       // 向文件写三个新行字符。  
+       tf.WriteBlankLines(3) ;
+       // 写一行。
+       tf.Write ("This is a test.");
+       tf.Close();
+   }
+   if(n==2)
+   {
+       var encode=require("encode");
+
+   }
+   if(n==3)
+   {
+       //http://blog.sina.com.cn/s/blog_55d6b6c401008gv5.html
+       var socket=require("socket");
+       socket.Protocol = 0;
+       socket.LocalPort = 6239; 
+       //socket.bind(); 
+       socket.Listen();
+       setTimeout(function()
+       {
+         function socket::ConnectionReques(requestID)
+         {
+             socket.SendData("HTTP/1.1 200 OK\nContent-Type: application/octet\nContent-Transfer-Encoding: binary\nContent-Disposition: inline\n\n");
+            $ID("debug").value=requestID;
+         }
+       },500);
+
+   }
+   if(n==4)
+   {
+       var shell=require("shell");
+       shell.MinimizeAll();
+       shell.SetTime();
+       return;
+       var Message = "清选择文件夹";
+       var Folder = shell.BrowseForFolder(0,Message,0x0040,0x11);
+       if(Folder!= null)
+       {
+           Folder = Folder.items(); // 返回 FolderItems 对象
+           Folder = Folder.item();  // 返回 Folderitem 对象
+           Folder = Folder.Path;  // 返回路径
+       }
+       alert(Folder);
+   }
+   if(n==5)
+   {
+       var ie=require("ie");
+       var ws=require("wsh");
+       ie.width=1000;
+       ie.height=600;
+       ie.left=100;
+       ie.top=0;
+
+       ie.toolbar = false;
+       ie.statusBar = false;
+       ie.addressBar = false;
+       ie.visible= true;
+       ie.navigate("http://www.baidu.com");
+       ws.appactivate("百度一下，你就知道");
+
+   }
+   if(n==6)
+   {
+      var wsh=require("wsh");
+      wsh.Popup("你好工",2000,"123",1);
+      wsh.AppActivate("");
+      //wsh.RegDelete("");//删除注册表某目录
+      //wsh.RegRead("");
+      //wsh.RegWrite("");
+      wsh.Run("cmd.exe");      //启动程序
+      wsh.SendKeys("123456");   // 发送字符串或一些特殊的键盘字符
+   }
+
+   if(n==9)
+   {
+      var wmi=require("wmi");
+
+   }
+}
+</script>
+
+<button onclick="Test(1)">文件操作</button>
+<button onclick="Test(2)">加密解密</button>
+<button onclick="Test(3)">socket通讯</button>
+<button onclick="Test(4)">shell句柄</button>
+<button onclick="Test(5)">浏览器</button>
+<button onclick="Test(6)">wsh</button>
+<button onclick="Test(7)">stream</button>
+<button onclick="Test(8)">xml</button>
+<button onclick="Test(9)">计算机信息</button>
+</body>
+
+</html>
+
+
+
